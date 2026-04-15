@@ -16,7 +16,11 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+                <flux:sidebar.item icon="cog" :href="route('settingss')" :current="request()->routeIs('settingss')" wire:navigate>
+                    {{ __('Settings') }}
+                </flux:sidebar.item>
             </flux:sidebar.nav>
+
 
             <flux:spacer />
 
