@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/transactions', [TransactionController::class, 'index']);
 
-Route::view('settingss', 'settingss')->name('settingss');
+Route::view('settings', 'settings')->name('settings');
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
 // Route::middleware(['auth', 'verified'])->group(function () {
 // });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';
