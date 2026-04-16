@@ -1,6 +1,5 @@
 # banking-app
 
-
 How to Compile:
 
 composer install
@@ -9,3 +8,9 @@ npm install
 php artisan migrate
 php artisan optimize:clear
 php artisan key:generate
+
+TO DO:
+
+Features:
+
+1. Modular Theme Selections 
