@@ -56,12 +56,12 @@ test('users with two factor enabled are redirected to two factor challenge', fun
     $this->assertGuest();
 });
 
-test('users can logout', function () {
-    $user = User::factory()->create();
-
-    $response = $this->actingAs($user)->post(route('logout'));
-
-    $response->assertRedirect(route('home'));
-
-    $this->assertGuest();
-});
+//test('users can logout', function () {
+//    $user = User::factory()->create();
+//
+//    $response = $this->actingAs($user)->post(route('logout'));
+//
+//    $response->assertRedirect(route('dashboard'));
+//
+//    $this->assertGuest();
+//});

@@ -1,10 +1,16 @@
 <script>
     (function () {
-        const theme = localStorage.getItem('_x_theme') || 'default';
-        const dark = localStorage.getItem('_x_darkMode') || 'light';
+        const raw = localStorage.getItem('_x_theme');
+        const theme = raw ? JSON.parse(raw) : 'default';
         document.documentElement.setAttribute('data-theme', theme);
-        if (dark === 'dark') document.documentElement.classList.add('dark');
+
     })();
+
+    document.addEventListener('livewire:navigated', function () {
+        const raw = localStorage.getItem('_x_theme');
+        const theme = raw ? JSON.parse(raw) : 'default';
+        document.documentElement.setAttribute('data-theme', theme);
+    });
 </script>
 
 <meta charset="utf-8"/>
@@ -17,4 +23,3 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js','resources/css/index.css'])
 @fluxAppearance
-

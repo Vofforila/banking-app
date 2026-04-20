@@ -8,7 +8,21 @@
                 <p style="max-width:600px; font-size:16px;">
                     Track your spending, analyze your finances and take control of your money.
                 </p>
-                <flux:button>Button</flux:button>
+                <form action="{{ route('import.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <input
+                        type="file"
+                        name="statement"
+                        id="statementFile"
+                        class="hidden"
+                        onchange="this.form.submit()"
+                    >
+
+                    <flux:button type="button" onclick="document.getElementById('statementFile').click()">
+                        Upload Statement
+                    </flux:button>
+                </form>
             </div>
         </div>
     </flux:main>
