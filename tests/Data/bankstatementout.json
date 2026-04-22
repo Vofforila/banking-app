@@ -1,0 +1,232 @@
+[
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "31.03.2026",
+        "payer": "Bolt Services RO S.R.L",
+        "payeriban": "",
+        "amount": "-72.37",
+        "currency": "RON",
+        "description": "Tranzactie comerciant - Tranz: Nr card 449391XXXXXX0007, token XX3115, device DNITHE46252313327341, Ref 901140604315, Suma platita 72.37 RON. Comision: 0 RON. Locatie: 99999999 RO Bolt Services RO S.R.L . Bucuresti. Data_Ora: 30-03-2026 11:57:39"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "31.03.2026",
+        "payer": "ANGORA NATUR INVEST",
+        "payeriban": "",
+        "amount": "-4.00",
+        "currency": "RON",
+        "description": "Google Pay, Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, token XX4133, device Nothing - A142, Ref 901107513873, Suma platita 4 RON. Comision: 0 RON. Locatie: P4205216 RO ANGORA NATUR INVEST SECTOR 2. Data_Ora: 27-03-2026 00:00:00"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "24.03.2026",
+        "payer": "NICOLAE BUSINESS SRL",
+        "payeriban": "",
+        "amount": "-5.50",
+        "currency": "RON",
+        "description": "Google Pay, Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, token XX4133, device Nothing - A142, Ref 901037444036, Suma platita 5.5 RON. Comision: 0 RON. Locatie: 30388271 RO NICOLAE BUSINESS SRL Bucuresti. Data_Ora: 23-03-2026 11:54:08"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "21.03.2026",
+        "payer": "GREEKOS FOODS S R L",
+        "payeriban": "",
+        "amount": "-55.00",
+        "currency": "RON",
+        "description": "Google Pay, Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, token XX4133, device Nothing - A142, Ref 900992062503, Suma platita 55 RON. Comision: 0 RON. Locatie: 0431I5PR RO GREEKOS FOODS S R L BUCURESTI. Data_Ora: 20-03-2026 17:22:49"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "20.03.2026",
+        "payer": "",
+        "payeriban": "",
+        "amount": "-500.00",
+        "currency": "RON",
+        "description": "Ordin cumparare UF ROFDIN0000F6 ADV\/07258025"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "20.03.2026",
+        "payer": "Berciu Paul",
+        "payeriban": "",
+        "amount": "500.00",
+        "currency": "RON",
+        "description": ""
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "20.03.2026",
+        "payer": "Money reserve",
+        "payeriban": "",
+        "amount": "-1,800.00",
+        "currency": "RON",
+        "description": ""
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "20.03.2026",
+        "payer": "Paul Berciu",
+        "payeriban": "",
+        "amount": "1,800.00",
+        "currency": "RON",
+        "description": "Adauga Bani Instant. Transfer din card VISA XXX 1495. Comision 0.00. AUTH_CODE 358474. RRN 607984130171."
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "20.03.2026",
+        "payer": "Money reserve",
+        "payeriban": "",
+        "amount": "-700.00",
+        "currency": "RON",
+        "description": ""
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "20.03.2026",
+        "payer": "",
+        "payeriban": "",
+        "amount": "-514.90",
+        "currency": "RON",
+        "description": "Tranzactie efectuata prin George Banking BCR Initiere schimb valutar id 342038435, Curs: 5.149, Valuta C.\/Valuta V.: EUR\/RON - Foreign Exchange"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "19.03.2026",
+        "payer": "Bolt Services RO S.R.L",
+        "payeriban": "",
+        "amount": "-72.52",
+        "currency": "RON",
+        "description": "Tranzactie comerciant - Tranz: Nr card 449391XXXXXX0007, token XX3115, device DNITHE46252313327341, Ref 900952710177, Suma platita 72.52 RON. Comision: 0 RON. Locatie: 99999999 RO Bolt Services RO S.R.L . Bucuresti. Data_Ora: 18-03-2026 11:30:39"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "19.03.2026",
+        "payer": "www.metrorex.ro",
+        "payeriban": "",
+        "amount": "-100.00",
+        "currency": "RON",
+        "description": "Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, Ref 900954771092, Suma platita 100 RON. Comision: 0 RON. Locatie: 3H742501 RO www.metrorex.ro BUCURESTI. Data_Ora: 18-03-2026 13:14:29"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "17.03.2026",
+        "payer": "KFC Romania Online",
+        "payeriban": "",
+        "amount": "-132.40",
+        "currency": "RON",
+        "description": "Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, Ref 900919349491, Suma platita 132.4 RON. Comision: 0 RON. Locatie: 00000001 RO KFC Romania Online 0148371700. Data_Ora: 16-03-2026 11:58:13"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "16.03.2026",
+        "payer": "HOYOVERSE",
+        "payeriban": "",
+        "amount": "-22.30",
+        "currency": "RON",
+        "description": "Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, Ref 900907103684, Suma platita 4.99 USD, Suma in valuta contului 22.3 RON, Suma decontata 22.3 ROL Rata de schimb 1ROL=1 RON. Comision: .56 RON. Locatie: BXSD0U8H SG HOYOVERSE +656964065. Data_Ora: 15-03-2026 13:53:29"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "16.03.2026",
+        "payer": "",
+        "payeriban": "",
+        "amount": "-0.56",
+        "currency": "RON",
+        "description": "Comision conversie pentru tranzactia cu voucherul 2026031686107940"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "14.03.2026",
+        "payer": "SOCULUI KEBAP",
+        "payeriban": "",
+        "amount": "-41.00",
+        "currency": "RON",
+        "description": "Google Pay, Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, token XX4133, device Nothing - A142, Ref 900824916645, Suma platita 41 RON. Comision: 0 RON. Locatie: 30279151 RO SOCULUI KEBAP BUCURESTI. Data_Ora: 13-03-2026 18:53:16"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "11.03.2026",
+        "payer": "NICOLAE BUSINESS SRL",
+        "payeriban": "",
+        "amount": "-32.00",
+        "currency": "RON",
+        "description": "Google Pay, Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, token XX4133, device Nothing - A142, Ref 900764861430, Suma platita 32 RON. Comision: 0 RON. Locatie: 30388271 RO NICOLAE BUSINESS SRL Bucuresti. Data_Ora: 10-03-2026 12:45:30"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "07.03.2026",
+        "payer": "OMNIASIG",
+        "payeriban": "",
+        "amount": "-19.00",
+        "currency": "RON",
+        "description": "Plata lunara polita asigurare Multi Protect nr. I36244179, scadenta din data de 7\/3\/2026"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "06.03.2026",
+        "payer": "SOCULUI KEBAP",
+        "payeriban": "",
+        "amount": "-125.00",
+        "currency": "RON",
+        "description": "Google Pay, Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, token XX4133, device Nothing - A142, Ref 900688658310, Suma platita 125 RON. Comision: 0 RON. Locatie: 30279182 RO SOCULUI KEBAP BUCURESTI. Data_Ora: 05-03-2026 11:23:41"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "05.03.2026",
+        "payer": "Paul Berciu",
+        "payeriban": "",
+        "amount": "1,700.00",
+        "currency": "RON",
+        "description": "Adauga Bani Instant. Transfer din card VISA XXX 1495. Comision 0.00. AUTH_CODE 371729. RRN 606484372386."
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "03.03.2026",
+        "payer": "HOYOVERSE",
+        "payeriban": "",
+        "amount": "-43.26",
+        "currency": "RON",
+        "description": "Tranzactie comerciant - Tranz: Nr card 449391XXXXXX9224, Ref 900649824690, Suma platita 9.99 USD, Suma in valuta contului 43.26 RON, Suma decontata 43.26 ROL Rata de schimb 1ROL=1 RON. Comision: 1.08 RON. Locatie: BXSD0U8H SG HOYOVERSE +656964065. Data_Ora: 02-03-2026 18:01:32"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "03.03.2026",
+        "payer": "",
+        "payeriban": "",
+        "amount": "-1.08",
+        "currency": "RON",
+        "description": "Comision conversie pentru tranzactia cu voucherul 2026030316326332"
+    },
+    {
+        "account": "Current Account GEORGE",
+        "iban": "RO02RNCB0188167102130001",
+        "date": "01.03.2026",
+        "payer": "Money reserve",
+        "payeriban": "",
+        "amount": "-1,300.00",
+        "currency": "RON",
+        "description": ""
+    }
+]

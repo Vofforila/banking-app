@@ -23,8 +23,12 @@
     </flux:sidebar.header>
 
     <flux:sidebar.nav>
-        <flux:sidebar.item icon="academic-cap" href="dashboard" current>Home</flux:sidebar.item>
-        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="settings">Settings</flux:sidebar.item>
+        <flux:sidebar.item icon="academic-cap" href="{{ route('dashboard') }}" current>Home</flux:sidebar.item>
+        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="{{route('transaction.index')}}">Transactions
+        </flux:sidebar.item>
+        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="{{route('statistics.index')}}">Statistics
+        </flux:sidebar.item>
+        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="{{route('settings')}}">Settings</flux:sidebar.item>
         <flux:sidebar.group expandable icon="star" heading="Favorites" class="grid">
             <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
             <flux:sidebar.item href="#">Android app</flux:sidebar.item>

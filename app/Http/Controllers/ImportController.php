@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TransactionCategory;
+use App\Models\Transactions;
 use App\Services\CsvTextService;
 use App\Services\OCRService;
 use App\Services\PdfTextService;
@@ -9,10 +11,10 @@ use Illuminate\Http\Request;
 
 class ImportController extends Controller
 {
-    public function store(Request $request, CsvTextService $csv, OCRService $ocr, PdfTextService $pdfTextService)
+    public function storeTransactions(Request $request, CsvTextService $csv, OCRService $ocr, PdfTextService $pdfTextService)
     {
-        $text = "";
-        $file = $request->file('file');
+        $transactions = "";
+        $file = $request->file('statement');
 
         if (!$file) {
             dd('No file uploaded');
@@ -33,16 +35,38 @@ class ImportController extends Controller
             $extension === 'json';
 
         if ($isImage) {
-            $text = $ocr->extractText($file);
+            $transactions = $ocr->extractText($file);
         } elseif ($isCsv) {
-            $text = $csv->extractFromCsv($file);
+            $transactions = $csv->extractFromCsv($file);
         } elseif ($isJson) {
-            $text = 'JSON file';
+            $transactions = 'JSON file';
         } elseif ($isPdf) {
-            $text = $pdfTextService->extract($file);
+            $transactions = $pdfTextService->extract($file);
         }
 
-        return $text;
+
+        foreach ($transactions as $transaction) {
+            $amount = (float)str_replace(',', '', $transaction['amount']);
+
+            Transactions::createTransaction(
+                account: $transaction['account'],
+                type: $amount < 0 ? 'expenses' : 'income',  // ← string 'expenses' or 'income'
+                amount: $amount,                              // ← float
+                currency: $transaction['currency'],
+                date: $transaction['date'],
+                category: TransactionCategory::detect(
+                    $transaction['payer'],
+                    $transaction['description']
+                ),
+                iban: $transaction['iban'],
+                payer: $transaction['payer'],
+                payeriban: $transaction['payeriban'],
+                description: $transaction['description'],
+            );
+        }
+
+
+        return $transactions;
 
         //        $text = $ocr->extractText($file);
 
