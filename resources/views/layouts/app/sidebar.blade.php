@@ -35,15 +35,14 @@
                            :current="request()->routeIs('statistics.*')">
             Statistics
         </flux:sidebar.item>
+        <flux:sidebar.item icon="tag" href="{{ route('categories.index') }}"
+                           :current="request()->routeIs('categories.*')">
+            Categories
+        </flux:sidebar.item>
         <flux:sidebar.item icon="cog-8-tooth" href="{{ route('settings.index') }}"
                            :current="request()->routeIs('settings')">
             Settings
         </flux:sidebar.item>
-        <flux:sidebar.group expandable icon="star" heading="Favorites" class="grid">
-            <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
-            <flux:sidebar.item href="#">Android app</flux:sidebar.item>
-            <flux:sidebar.item href="#">Brand guidelines</flux:sidebar.item>
-        </flux:sidebar.group>
     </flux:sidebar.nav>
 
     <flux:spacer/>

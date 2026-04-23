@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Models\UserCategory;
+
 enum TransactionCategory: string
 {
     // Expenses
@@ -39,10 +41,24 @@ enum TransactionCategory: string
         };
     }
 
-    public static function detect(string $payer, string $description = ''): string
+    public static function detect(string $payer, string $description = '', ?int $userId = null): string
     {
         $text = strtolower($payer . ' ' . $description);
 
+        // ✅ Check user defined categories FIRST — they take priority
+        if ($userId) {
+            $userCategories = UserCategory::where('user_id', $userId)->get();
+
+            foreach ($userCategories as $category) {
+                foreach ($category->keywords as $keyword) {
+                    if (str_contains($text, strtolower($keyword))) {
+                        return $category->name;
+                    }
+                }
+            }
+        }
+
+        // ✅ Fall back to predefined categories
         foreach (self::cases() as $category) {
             foreach ($category->keywords() as $keyword) {
                 if (str_contains($text, strtolower($keyword))) {

@@ -1,16 +1,16 @@
 <x-layouts::app.sidebar :title="'Transactions'">
     <flux:main>
         {{-- Header Row --}}
+        <flux:heading size="xl">Transactions</flux:heading>
         <div class="flex items-center justify-between mb-4">
-            <flux:heading size="xl">Transactions</flux:heading>
-            <flux:button href="{{ route('transaction.add') }}" size="sm" variant="primary">
-                Add Transaction
-            </flux:button>
+            {{-- All buttons grouped together on the right --}}
+            <div class="flex items-center gap-2">
+                <livewire:add-category/>
+                <flux:button href="{{ route('transaction.add') }}" size="sm" variant="primary">
+                    Add Transaction
+                </flux:button>
+            </div>
         </div>
-
-        {{-- Use viewport height minus estimated header height --}}
-        <div style="height: calc(100vh - 160px); overflow-y: auto;">
-            <livewire:transactions-table/>
-        </div>
+        <livewire:transactions-table/>
     </flux:main>
 </x-layouts::app.sidebar>

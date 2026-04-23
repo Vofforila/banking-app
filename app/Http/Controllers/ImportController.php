@@ -50,13 +50,14 @@ class ImportController extends Controller
 
             Transactions::createTransaction(
                 account: $transaction['account'],
-                type: $amount < 0 ? 'expenses' : 'income',  // ← string 'expenses' or 'income'
-                amount: $amount,                              // ← float
+                type: $amount < 0 ? 'expenses' : 'income',
+                amount: $amount,
                 currency: $transaction['currency'],
                 date: $transaction['date'],
                 category: TransactionCategory::detect(
                     $transaction['payer'],
-                    $transaction['description']
+                    $transaction['description'],
+                    auth()->id()
                 ),
                 iban: $transaction['iban'],
                 payer: $transaction['payer'],

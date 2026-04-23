@@ -18,23 +18,24 @@ class AddTransaction extends Component
     public ?string $date = null;
     public ?string $description = null;
 
-    public function setType(string $type): void
-    {
-        $this->type = $type;
-        $this->selectedCategory = null; // reset category when switching
-    }
-
-    public function setCategory(string $category): void
-    {
-        $this->selectedCategory = $category;
-    }
-
     public function render(): view
     {
         return view('livewire.add-transaction', [
             'categories' => TransactionCategory::forType($this->type),
         ]);
     }
+    
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+        $this->selectedCategory = null; // reset category when switching
+    }
+
+    public function selectCategory(string $category): void
+    {
+        $this->selectedCategory = $this->selectedCategory === $category ? null : $category;
+    }
+
 
     public function save(): void
     {
