@@ -19,8 +19,7 @@
             @foreach($this->getPredefinedCategories() as $category)
                 <div class="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 border border-zinc-200 dark:border-zinc-700">
                     <div class="flex items-center gap-3 mb-2">
-                        <img src="{{ asset('images/' . $category->image()) }}"
-                             class="w-8 h-8 rounded-full object-cover"/>
+                        <x-category-icon :category="$category->value" :size="10"/>
                         <p class="font-semibold text-zinc-900 dark:text-zinc-100">{{ $category->value }}</p>
                     </div>
                     <div class="flex flex-wrap gap-1">
@@ -62,6 +61,9 @@
                                     icon="trash"/>
                             </div>
                         </div>
+                        <x-category-icon
+                            :category="['name' => $category->name, 'icon' => $category->icon, 'color' => $category->color]"
+                            :size="10"/>
                         <div class="flex flex-wrap gap-1">
                             @foreach($category->keywords as $keyword)
                                 <span

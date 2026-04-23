@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Enums\TransactionCategory;
 use App\Models\Transactions;
 use App\Models\UserCategory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -18,6 +19,8 @@ class Categories extends Component
     public string $editName = '';
     public string $editType = 'expenses';
     public string $editKeywords = '';
+    public string $editIcon = 'food';
+    public string $editColor = '#3b82f6';
 
     #[On('categoryUpdated')]
     public function refreshCategories(): void
@@ -37,6 +40,8 @@ class Categories extends Component
         $this->editName = $category->name;
         $this->editType = $category->type;
         $this->editKeywords = implode(', ', $category->keywords);
+        $this->editIcon = $category->icon ?? 'food';
+        $this->editColor = $category->color ?? '#3b82f6';
         $this->showEditModal = true;
     }
 
@@ -56,12 +61,12 @@ class Categories extends Component
                 'name' => $this->editName,
                 'type' => $this->editType,
                 'keywords' => $keywords,
+                'icon' => $this->editIcon,
+                'color' => $this->editColor,
             ]);
 
-        // Recategorize transactions after edit
         $this->recategorize();
-
-        $this->reset(['showEditModal', 'editingId', 'editName', 'editType', 'editKeywords']);
+        $this->reset(['showEditModal', 'editingId', 'editName', 'editType', 'editKeywords', 'editIcon', 'editColor']);
     }
 
     private function recategorize(): void
@@ -95,7 +100,7 @@ class Categories extends Component
         );
     }
 
-    public function render()
+    public function render(): view
     {
         $userCategories = UserCategory::where('user_id', auth()->id())
             ->where('type', $this->type)
@@ -103,4 +108,16 @@ class Categories extends Component
 
         return view('livewire.categories', compact('userCategories'));
     }
+
+    public function onIconSelected(string $icon, string $color): void
+    {
+        $this->editIcon = $icon;
+        $this->editColor = $color;
+    }
+
+    protected function getListeners(): array
+    {
+        return ['iconSelected' => 'onIconSelected'];
+    }
+
 }

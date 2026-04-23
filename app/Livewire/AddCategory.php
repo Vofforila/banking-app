@@ -13,7 +13,9 @@ class AddCategory extends Component
     public bool $showModal = false;
     public string $name = '';
     public string $type = 'expenses';
-    public string $keywordsInput = ''; // comma separated input
+    public string $keywordsInput = '';
+    public string $selectedIcon = 'shopping';
+    public string $selectedColor = '#3b82f6';
 
     public function save(): void
     {
@@ -27,7 +29,12 @@ class AddCategory extends Component
 
         UserCategory::updateOrCreate(
             ['user_id' => auth()->id(), 'name' => $this->name],
-            ['type' => $this->type, 'keywords' => $keywords]
+            [
+                'type' => $this->type,
+                'keywords' => $keywords,
+                'icon' => $this->selectedIcon,  // ✅
+                'color' => $this->selectedColor, // ✅
+            ]
         );
 
         // Recategorize
@@ -51,5 +58,16 @@ class AddCategory extends Component
     {
         $categories = UserCategory::where('user_id', auth()->id())->get();
         return view('livewire.add-category', compact('categories'));
+    }
+
+    public function onIconSelected(string $icon, string $color): void
+    {
+        $this->selectedIcon = $icon;
+        $this->selectedColor = $color;
+    }
+
+    protected function getListeners()
+    {
+        return ['iconSelected' => 'onIconSelected'];
     }
 }

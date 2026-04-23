@@ -102,6 +102,34 @@ enum TransactionCategory: string
         };
     }
 
+    public function icon(): CategoryIcon
+    {
+        return match ($this) {
+            self::Food => CategoryIcon::Food,
+            self::Transport => CategoryIcon::Transport,
+            self::Electronics => CategoryIcon::Electronics,
+            self::Health => CategoryIcon::Health,
+            self::Paycheck => CategoryIcon::Paycheck,
+            self::Gift => CategoryIcon::Gift,
+            self::Interest => CategoryIcon::Interest,
+            self::Freelance => CategoryIcon::Freelance,
+        };
+    }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::Food => '#f97316',
+            self::Transport => '#3b82f6',
+            self::Electronics => '#8b5cf6',
+            self::Health => '#ef4444',
+            self::Paycheck => '#22c55e',
+            self::Gift => '#ec4899',
+            self::Interest => '#14b8a6',
+            self::Freelance => '#f59e0b',
+        };
+    }
+
     public function image(): string
     {
         return match ($this) {

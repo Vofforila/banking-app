@@ -148,22 +148,9 @@
 
             @if(!$selectedCategory)
                 {{-- Category Cards --}}
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    @foreach($selectedData as $category => $data)
-                        <div
-                            wire:click="selectCategory('{{ $category }}')"
-                            class="bg-white dark:bg-zinc-700 rounded-xl p-4 border border-zinc-100 dark:border-zinc-600 cursor-pointer hover:border-blue-400 transition-colors">
-                            <p class="text-sm font-semibold text-zinc-700 dark:text-zinc-200">{{ $category }}</p>
-                            <p class="text-xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">{{ $data['sum'] }}
-                                RON</p>
-                            <p class="text-xs text-zinc-400 mt-1">{{ $data['percentage'] }}% · {{ $data['count'] }}
-                                transactions</p>
-                            <div class="mt-2 h-1.5 bg-zinc-200 dark:bg-zinc-600 rounded-full">
-                                <div class="h-1.5 bg-blue-500 rounded-full"
-                                     style="width: {{ $data['percentage'] }}%"></div>
-                            </div>
-                        </div>
-                    @endforeach
+                <div class="flex items-center gap-3 mb-2">
+                    <x-category-icon :category="$category" :size="8"/>
+                    <p class="font-semibold">{{ $category }}</p>
                 </div>
 
             @else

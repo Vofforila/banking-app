@@ -27,6 +27,12 @@
                     </flux:select>
                 </flux:field>
 
+                {{-- Icon Selector --}}
+                <flux:field>
+                    <flux:label>Icon & Color</flux:label>
+                    <livewire:icon-selector :key="'icon-selector'"/>
+                </flux:field>
+
                 {{-- Keywords --}}
                 <flux:field>
                     <flux:label>Keywords <span class="text-zinc-400 text-xs">(comma separated)</span></flux:label>

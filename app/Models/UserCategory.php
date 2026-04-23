@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserCategory extends Model
 {
-    protected $fillable = ['user_id', 'name', 'type', 'keywords'];
+    protected $fillable = ['user_id', 'name', 'type', 'keywords', 'icon', 'color'];
 
     protected $casts = [
         'keywords' => 'array',
