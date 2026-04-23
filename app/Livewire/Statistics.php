@@ -2,8 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Enums\TransactionCategory;
 use App\Models\Transactions;
+use App\Models\UserCategory;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Statistics extends Component
@@ -11,9 +14,11 @@ class Statistics extends Component
     public string $view = 'general';
     public string $period = 'month';
     public ?string $selectedPeriod = null;
+    public array $selectedCategories = [];
     public ?string $selectedCategory = null;
+    public bool $allSelected = true;
 
-    public function render()
+    public function render(): view
     {
         return view('livewire.statistics', [
             'chartData' => $this->getChartData(),
@@ -24,7 +29,8 @@ class Statistics extends Component
 
     public function getChartData(): array
     {
-        $query = Transactions::where('user_id', auth()->id());
+        $query = Transactions::where('user_id', auth()->id())
+            ->whereIn('category', $this->selectedCategories); // ✅ filter
 
         if ($this->view === 'expenses') {
             $query->where('amount', '<', 0);
@@ -34,7 +40,6 @@ class Statistics extends Component
 
         $transactions = $query->get();
 
-        // Group by period
         $grouped = $transactions->groupBy(function ($t) {
             $date = Carbon::createFromFormat('d.m.Y', $t->date);
             return match ($this->period) {
@@ -65,7 +70,8 @@ class Statistics extends Component
     {
         if (!$this->selectedPeriod) return [];
 
-        $query = Transactions::where('user_id', auth()->id());
+        $query = Transactions::where('user_id', auth()->id())
+            ->whereIn('category', $this->selectedCategories); // ✅ filter
 
         if ($this->view === 'expenses') {
             $query->where('amount', '<', 0);
@@ -84,11 +90,10 @@ class Statistics extends Component
             return $label === $this->selectedPeriod;
         });
 
-        // ✅ Sum absolute values so expenses and income don't cancel each other out
         $total = $transactions->sum(fn($t) => abs($t->amount));
 
         $byCategory = $transactions->groupBy('category')->map(function ($items) use ($total) {
-            $sum = $items->sum(fn($t) => abs($t->amount)); // ✅ abs per item
+            $sum = $items->sum(fn($t) => abs($t->amount));
             return [
                 'sum' => round($sum, 2),
                 'percentage' => $total > 0 ? round(($sum / $total) * 100, 1) : 0,
@@ -118,6 +123,42 @@ class Statistics extends Component
             })
             ->values()
             ->toArray();
+    }
+
+    public function mount(): void
+    {
+        $this->selectedCategories = $this->getAllCategories();
+    }
+
+    public function getAllCategories(): array
+    {
+        $predefined = array_map(fn($c) => $c->value, TransactionCategory::cases());
+        $userDefined = UserCategory::where('user_id', auth()->id())->pluck('name')->toArray();
+        return array_values(array_unique(array_merge($predefined, $userDefined)));
+    }
+
+    public function selectAll(): void
+    {
+        $this->selectedCategories = $this->getAllCategories();
+    }
+
+    public function deselectAll(): void
+    {
+        $this->selectedCategories = [];
+    }
+
+    public function toggleCategory(string $category): void
+    {
+        if (in_array($category, $this->selectedCategories)) {
+            $this->selectedCategories = array_values(
+                array_filter($this->selectedCategories, fn($c) => $c !== $category)
+            );
+        } else {
+            $this->selectedCategories[] = $category;
+        }
+
+        // ✅ Recalculate allSelected based on actual state
+        $this->allSelected = count($this->selectedCategories) === count($this->getAllCategories());
     }
 
     public function selectPeriod(string $period): void

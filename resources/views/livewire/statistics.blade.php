@@ -23,6 +23,30 @@
         @endforeach
     </div>
 
+    {{-- Category Filter --}}
+    <div class="bg-zinc-50 dark:bg-zinc-800 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-700">
+        <div class="flex items-center justify-between mb-3">
+            <p class="text-xs font-semibold tracking-widest uppercase text-zinc-400">Filter Categories</p>
+            <div class="flex gap-2">
+                <flux:button wire:click="selectAll" size="sm" variant="outline">All</flux:button>
+                <flux:button wire:click="deselectAll" size="sm" variant="outline">None</flux:button>
+            </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            @foreach($this->getAllCategories() as $category)
+                <label class="flex items-center gap-2 cursor-pointer bg-white dark:bg-zinc-700 rounded-lg px-3 py-2 border select-none
+                {{ in_array($category, $selectedCategories) ? 'border-blue-400' : 'border-zinc-200 dark:border-zinc-600 opacity-50' }}">
+                    <input
+                        type="checkbox"
+                        wire:model.live="selectedCategories"
+                        value="{{ $category }}"
+                        class="rounded"/>
+                    <span class="text-sm text-zinc-900 dark:text-zinc-100">{{ $category }}</span>
+                </label>
+            @endforeach
+        </div>
+    </div>
+
     {{-- Chart --}}
     <div class="bg-zinc-50 dark:bg-zinc-800 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-700">
         @if(count($chartData) === 0)
