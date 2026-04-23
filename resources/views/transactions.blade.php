@@ -1,7 +1,7 @@
 <x-layouts::app.sidebar :title="'Transactions'">
     <flux:main>
         {{-- Header Row --}}
-        <flux:heading size="xl">Transactions</flux:heading>
+        <flux:heading class="mb-4" size="xl">Transactions</flux:heading>
         <div class="flex items-center justify-between mb-4">
             {{-- All buttons grouped together on the right --}}
             <div class="flex items-center gap-2">

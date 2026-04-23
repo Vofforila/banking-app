@@ -48,14 +48,20 @@
             @foreach($categories as $category)
                 <div
                     wire:click="setCategory('{{ $category->value }}')"
-                    class="flex flex-col items-center gap-1 cursor-pointer">
-                    <flux:avatar
-                        src="{{ asset('images/' . $category->image()) }}"
-                        class="{{ $selectedCategory === $category->value ? 'ring-2 ring-blue-500' : '' }}"/>
+                    class="flex flex-col items-center gap-2 cursor-pointer">
+
+                    {{-- Icon circle with highlight when selected --}}
+                    <div
+                        class="{{ $selectedCategory === $category->value ? 'ring-2 ring-blue-500 rounded-full' : '' }}">
+                        <x-category-icon
+                            :category="$category->value"
+                            :size="10"/>
+                    </div>
+
                     <span
-                        class="text-xs {{ $selectedCategory === $category->value ? 'text-blue-500 font-semibold' : 'text-gray-500' }}">
-            {{ $category->value }}
-        </span>
+                        class="text-xs text-center {{ $selectedCategory === $category->value ? 'text-blue-500 font-semibold' : 'text-zinc-500' }}">
+                    {{ $category->value }}
+                </span>
                 </div>
             @endforeach
         </div>
