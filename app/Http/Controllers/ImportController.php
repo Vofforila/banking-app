@@ -66,7 +66,7 @@ class ImportController extends Controller
         }
 
 
-        return $transactions;
+        return redirect()->route('transactions.index');
 
         //        $text = $ocr->extractText($file);
 

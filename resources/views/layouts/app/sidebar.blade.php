@@ -23,12 +23,22 @@
     </flux:sidebar.header>
 
     <flux:sidebar.nav>
-        <flux:sidebar.item icon="academic-cap" href="{{ route('dashboard') }}" current>Home</flux:sidebar.item>
-        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="{{route('transaction.index')}}">Transactions
+        <flux:sidebar.item icon="academic-cap" href="{{ route('dashboard') }}"
+                           :current="request()->routeIs('dashboard')">
+            Home
         </flux:sidebar.item>
-        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="{{route('statistics.index')}}">Statistics
+        <flux:sidebar.item icon="banknotes" href="{{ route('transactions.index') }}"
+                           :current="request()->routeIs('transactions.*')">
+            Transactions
         </flux:sidebar.item>
-        <flux:sidebar.item icon="cog-8-tooth" badge="12" href="{{route('settings')}}">Settings</flux:sidebar.item>
+        <flux:sidebar.item icon="chart-pie" href="{{ route('statistics.index') }}"
+                           :current="request()->routeIs('statistics.*')">
+            Statistics
+        </flux:sidebar.item>
+        <flux:sidebar.item icon="cog-8-tooth" href="{{ route('settings.index') }}"
+                           :current="request()->routeIs('settings')">
+            Settings
+        </flux:sidebar.item>
         <flux:sidebar.group expandable icon="star" heading="Favorites" class="grid">
             <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
             <flux:sidebar.item href="#">Android app</flux:sidebar.item>

@@ -29,8 +29,18 @@ class TransactionsTable extends Component
         $transactions = Transactions::where('user_id', auth()->id())
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
-
-
         return view('livewire.transactions-table', compact('transactions'));
+    }
+
+    public function deleteAll(): void
+    {
+        Transactions::where('user_id', auth()->id())->delete();
+    }
+
+    public function delete(int $id): void
+    {
+        Transactions::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->delete();
     }
 }

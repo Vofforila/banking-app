@@ -59,7 +59,7 @@ class AddTransaction extends Component
         );
 
         // Redirect back to transactions
-        $this->redirect(route('transaction.index'));
+        $this->redirect(route('transactions.index'));
     }
 
     public function formatDate(string $date): string
