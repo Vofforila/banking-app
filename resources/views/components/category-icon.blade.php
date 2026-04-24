@@ -1,22 +1,23 @@
-@php use App\Enums\CategoryIcon;use App\Enums\TransactionCategory; @endphp
+@php use App\Enums\CategoryIcon;use App\Models\UserCategory; @endphp
 @props(['category', 'size' => 10])
 
 @php
-    // Handle both string and array input
     $categoryName = is_array($category) ? ($category['name'] ?? '') : $category;
 
-    $predefined = null;
-    try {
-        $predefined = TransactionCategory::from($categoryName);
-    } catch (ValueError $e) {}
+    // Look up from UserCategory in DB
+    $userCategory = UserCategory::where('user_id', auth()->id())
+        ->where('name', $categoryName)
+        ->first();
 
-    if ($predefined) {
-        $imgPath = $predefined->icon()->path();
-        $color   = $predefined->color();
-    } else {
-        $iconEnum = CategoryIcon::tryFrom($category['icon'] ?? 'food');
+    if ($userCategory) {
+        $iconEnum = CategoryIcon::tryFrom($userCategory->icon ?? 'food');
         $imgPath  = $iconEnum ? $iconEnum->path() : CategoryIcon::Food->path();
-        }
+        $color    = $userCategory->color ?? '#f97316';
+    } else {
+        // Fallback if category not found
+        $imgPath = CategoryIcon::Food->path();
+        $color   = '#f97316';
+    }
 @endphp
 
 <div

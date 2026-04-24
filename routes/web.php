@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImportController;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::get('/transactions/add-transaction', [TransactionController::class, 'add_transaction'])->name('transaction.add');
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');

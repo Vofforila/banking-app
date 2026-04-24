@@ -1,38 +1,24 @@
 <div class="space-y-6">
-
-    {{-- Type Toggle --}}
-    <div class="flex gap-2">
-        <flux:button wire:click="setType('expenses')" variant="{{ $type === 'expenses' ? 'primary' : 'outline' }}"
-                     size="sm">
-            💸 Expenses
-        </flux:button>
-        <flux:button wire:click="setType('income')" variant="{{ $type === 'income' ? 'primary' : 'outline' }}"
-                     size="sm">
-            💰 Income
-        </flux:button>
-    </div>
-
-    {{-- Predefined Categories --}}
-    <div>
-        <p class="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-3">Default Categories</p>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-            @foreach($this->getPredefinedCategories() as $category)
-                <div class="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 border border-zinc-200 dark:border-zinc-700">
-                    <div class="flex items-center gap-3 mb-2">
-                        <x-category-icon :category="$category->value" :size="10"/>
-                        <p class="font-semibold text-zinc-900 dark:text-zinc-100">{{ $category->value }}</p>
-                    </div>
-                    <div class="flex flex-wrap gap-1">
-                        @foreach($category->keywords() as $keyword)
-                            <span
-                                class="text-xs bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 rounded-full px-2 py-0.5">
-                                {{ $keyword }}
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
+    <div class="flex items-center justify-between">
+        <div class="flex gap-2">
+            <flux:button wire:click="setType('expenses')" variant="{{ $type === 'expenses' ? 'primary' : 'outline' }}"
+                         size="sm">
+                💸 Expenses
+            </flux:button>
+            <flux:button wire:click="setType('income')" variant="{{ $type === 'income' ? 'primary' : 'outline' }}"
+                         size="sm">
+                💰 Income
+            </flux:button>
         </div>
+
+        {{--  Reset button --}}
+        <flux:button
+            wire:click="resetToDefaults"
+            wire:confirm="This will delete ALL your categories and reset to defaults. Are you sure?"
+            variant="danger"
+            size="sm">
+            🔄 Reset Defaults
+        </flux:button>
     </div>
 
     {{-- User Defined Categories --}}

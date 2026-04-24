@@ -3,11 +3,12 @@
 namespace App\Livewire;
 
 use App\Enums\CategoryIcon;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class IconSelector extends Component
 {
-    public string $selectedIcon = 'shopping';
+    public string $selectedIcon = 'food';
     public string $selectedColor = '#3b82f6';
 
     public array $colors = [
@@ -16,7 +17,7 @@ class IconSelector extends Component
         '#06b6d4', '#84cc16', '#e11d48', '#7c3aed',
     ];
 
-    public function mount(string $selectedIcon = 'shopping', string $selectedColor = '#3b82f6'): void
+    public function mount(string $selectedIcon = 'food', string $selectedColor = '#3b82f6'): void
     {
         $this->selectedIcon = $selectedIcon;
         $this->selectedColor = $selectedColor;
@@ -34,7 +35,7 @@ class IconSelector extends Component
         $this->dispatch('iconSelected', icon: $this->selectedIcon, color: $color);
     }
 
-    public function render()
+    public function render(): view
     {
         return view('livewire.icon-selector', [
             'icons' => CategoryIcon::cases(),

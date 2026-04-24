@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Services\CategorySeederService;
 use Illuminate\Database\Seeder;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,15 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $user = User::firstOrCreate(
+            ['email' => 'vofforila@gmail.com'],
+            [
+                'name' => 'Paul Berciu',
+                'password' => bcrypt('gameing123'),
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
-        $this->call([
-            UserSeeder::class,
-        ]);
+        if ($user->wasRecentlyCreated) {
+            app(CategorySeederService::class)->seedDefaultCategories($user);
+        }
     }
+
+
 }

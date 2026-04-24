@@ -1,4 +1,4 @@
-<div class="h-full flex flex-col">
+<div>
     {{-- Delete All Button --}}
     <div class="flex justify-end mb-4">
         <flux:button

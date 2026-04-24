@@ -2,10 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Enums\TransactionCategory;
 use App\Models\Transactions;
 use App\Models\UserCategory;
+use App\Services\CategorySeederService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -13,7 +14,6 @@ class Categories extends Component
 {
     public string $type = 'expenses';
 
-    // Edit modal
     public bool $showEditModal = false;
     public ?int $editingId = null;
     public string $editName = '';
@@ -33,6 +33,38 @@ class Categories extends Component
         $this->type = $type;
     }
 
+    public function resetToDefaults(): void
+    {
+        UserCategory::where('user_id', auth()->id())->delete();
+
+        app(CategorySeederService::class)->seedDefaultCategories(auth()->user());
+
+        $this->recategorize();
+    }
+
+    public function delete(int $id): void
+    {
+        UserCategory::where('user_id', auth()->id())
+            ->where('id', $id)
+            ->delete();
+
+        $this->recategorize();
+    }
+
+    private function recategorize(): void
+    {
+        $transactions = Transactions::where('user_id', auth()->id())->get();
+
+        foreach ($transactions as $transaction) {
+            $newCategory = UserCategory::detect(
+                $transaction->payer ?? '',
+                $transaction->description ?? '',
+                auth()->id()
+            );
+            $transaction->update(['category' => $newCategory]);
+        }
+    }
+
     public function openEdit(int $id): void
     {
         $category = UserCategory::where('user_id', auth()->id())->findOrFail($id);
@@ -48,7 +80,13 @@ class Categories extends Component
     public function saveEdit(): void
     {
         $this->validate([
-            'editName' => 'required|string',
+            'editName' => [
+                'required',
+                'string',
+                Rule::unique('user_categories', 'name')
+                    ->where('user_id', auth()->id())
+                    ->ignore($this->editingId),
+            ],
             'editType' => 'required|in:expenses,income',
             'editKeywords' => 'required|string',
         ]);
@@ -67,37 +105,6 @@ class Categories extends Component
 
         $this->recategorize();
         $this->reset(['showEditModal', 'editingId', 'editName', 'editType', 'editKeywords', 'editIcon', 'editColor']);
-    }
-
-    private function recategorize(): void
-    {
-        $transactions = Transactions::where('user_id', auth()->id())->get();
-
-        foreach ($transactions as $transaction) {
-            $newCategory = TransactionCategory::detect(
-                $transaction->payer ?? '',
-                $transaction->description ?? '',
-                auth()->id()
-            );
-            $transaction->update(['category' => $newCategory]);
-        }
-    }
-
-    public function delete(int $id): void
-    {
-        UserCategory::where('user_id', auth()->id())
-            ->where('id', $id)
-            ->delete();
-
-        $this->recategorize();
-    }
-
-    public function getPredefinedCategories(): array
-    {
-        return array_filter(
-            TransactionCategory::cases(),
-            fn($c) => $c->type() === $this->type
-        );
     }
 
     public function render(): view

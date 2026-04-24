@@ -35,7 +35,7 @@
 
                 {{-- Keywords --}}
                 <flux:field>
-                    <flux:label>Keywords <span class="text-zinc-400 text-xs">(comma separated)</span></flux:label>
+                    <flux:label>Keywords<span class="text-zinc-400 text-xs">(comma separated)</span></flux:label>
                     <flux:input wire:model="keywordsInput" placeholder="Bolt, Glovo, KFC..."/>
                     @error('keywordsInput') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </flux:field>

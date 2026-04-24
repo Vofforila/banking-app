@@ -12,8 +12,27 @@ class UserCategory extends Model
         'keywords' => 'array',
     ];
 
-    public function user()
+    public static function detect(string $payer, string $description = '', ?int $userId = null): string
     {
-        return $this->belongsTo(User::class);
+        if (!$userId) return 'Uncategorized';
+
+        $text = strtolower($payer . ' ' . $description);
+
+        $userCategories = self::where('user_id', $userId)->get();
+
+        foreach ($userCategories as $category) {
+            foreach ($category->keywords as $keyword) {
+                if (str_contains($text, strtolower($keyword))) {
+                    return $category->name;
+                }
+            }
+        }
+
+        return 'Uncategorized';
     }
+
+//    public function user(): BelongsTo
+//    {
+//        return $this->belongsTo(User::class);
+//    }
 }

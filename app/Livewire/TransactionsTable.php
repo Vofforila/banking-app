@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Transactions;
+use App\Services\AccountService;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -35,6 +36,8 @@ class TransactionsTable extends Component
     public function deleteAll(): void
     {
         Transactions::where('user_id', auth()->id())->delete();
+        app(AccountService::class)->syncAccounts(auth()->id());
+        auth()->user()->update(['default_account_id' => null]);
     }
 
     public function delete(int $id): void
@@ -42,5 +45,7 @@ class TransactionsTable extends Component
         Transactions::where('id', $id)
             ->where('user_id', auth()->id())
             ->delete();
+
+        app(AccountService::class)->syncAccounts(auth()->id());
     }
 }

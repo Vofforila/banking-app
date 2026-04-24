@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Enums;
 
-use App\Models\UserCategory;
+namespace App\Enums;
 
 enum TransactionCategory: string
 {
@@ -16,16 +15,6 @@ enum TransactionCategory: string
     case Paycheck = 'Paycheck';
     case Gift = 'Gift';
     case Interest = 'Interest';
-
-    public static function forType(string $type): array
-    {
-        return array_filter(
-            self::cases(),
-            fn($case) => $case->type() === $type
-        );
-    }
-
-    // ✅ Match a payer/description to a category
 
     public function type(): string
     {
@@ -41,35 +30,6 @@ enum TransactionCategory: string
         };
     }
 
-    public static function detect(string $payer, string $description = '', ?int $userId = null): string
-    {
-        $text = strtolower($payer . ' ' . $description);
-
-        // ✅ Check user defined categories FIRST — they take priority
-        if ($userId) {
-            $userCategories = UserCategory::where('user_id', $userId)->get();
-
-            foreach ($userCategories as $category) {
-                foreach ($category->keywords as $keyword) {
-                    if (str_contains($text, strtolower($keyword))) {
-                        return $category->name;
-                    }
-                }
-            }
-        }
-
-        // ✅ Fall back to predefined categories
-        foreach (self::cases() as $category) {
-            foreach ($category->keywords() as $keyword) {
-                if (str_contains($text, strtolower($keyword))) {
-                    return $category->value;
-                }
-            }
-        }
-
-        return 'Uncategorized';
-    }
-
     public function keywords(): array
     {
         return match ($this) {
@@ -80,7 +40,7 @@ enum TransactionCategory: string
             ],
             self::Transport => [
                 'bolt', 'uber', 'taxi', 'metrorex', 'stb',
-                'ratt', 'autogara', 'cfr', 'train', 'bus',
+                'ratt', 'autogara', 'cfr', 'train',
             ],
             self::Electronics => [
                 'emag', 'altex', 'flanco', 'apple', 'samsung',
@@ -102,17 +62,16 @@ enum TransactionCategory: string
         };
     }
 
-    public function icon(): CategoryIcon
+    public function icon(): string
     {
         return match ($this) {
-            self::Food => CategoryIcon::Food,
-            self::Transport => CategoryIcon::Transport,
-            self::Electronics => CategoryIcon::Electronics,
-            self::Health => CategoryIcon::Health,
-            self::Paycheck => CategoryIcon::Paycheck,
-            self::Gift => CategoryIcon::Gift,
-            self::Interest => CategoryIcon::Interest,
-            self::Freelance => CategoryIcon::Freelance,
+            self::Food => 'food',
+            self::Transport => 'transport',
+            self::Electronics => 'electronics',
+            self::Health => 'health',
+            self::Paycheck => 'paycheck',
+            self::Gift => 'gift',
+            self::Interest => 'interest',
         };
     }
 
@@ -126,20 +85,6 @@ enum TransactionCategory: string
             self::Paycheck => '#22c55e',
             self::Gift => '#ec4899',
             self::Interest => '#14b8a6',
-            self::Freelance => '#f59e0b',
-        };
-    }
-
-    public function image(): string
-    {
-        return match ($this) {
-            self::Food => 'food.png',
-            self::Transport => 'transport.png',
-            self::Electronics => 'electronics.png',
-            self::Health => 'health.png',
-            self::Paycheck => 'paycheck.png',
-            self::Gift => 'gift.png',
-            self::Interest => 'interest.png',
         };
     }
 }

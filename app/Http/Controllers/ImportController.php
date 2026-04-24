@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\TransactionCategory;
 use App\Models\Transactions;
+use App\Models\UserCategory;
+use App\Services\AccountService;
 use App\Services\CsvTextService;
 use App\Services\OCRService;
 use App\Services\PdfTextService;
@@ -14,6 +15,9 @@ class ImportController extends Controller
     public function storeTransactions(Request $request, CsvTextService $csv, OCRService $ocr, PdfTextService $pdfTextService)
     {
         $transactions = "";
+        $request->validate([
+            'statement' => 'required|file|mimes:csv,pdf,jpg,jpeg|max:10240',
+        ]);
         $file = $request->file('statement');
 
         if (!$file) {
@@ -54,7 +58,7 @@ class ImportController extends Controller
                 amount: $amount,
                 currency: $transaction['currency'],
                 date: $transaction['date'],
-                category: TransactionCategory::detect(
+                category: UserCategory::detect(
                     $transaction['payer'],
                     $transaction['description'],
                     auth()->id()
@@ -64,9 +68,11 @@ class ImportController extends Controller
                 payeriban: $transaction['payeriban'],
                 description: $transaction['description'],
             );
+
         }
 
 
+        app(AccountService::class)->syncAccounts(auth()->id());
         return redirect()->route('transactions.index');
 
         //        $text = $ocr->extractText($file);

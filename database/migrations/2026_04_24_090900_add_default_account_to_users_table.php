@@ -10,9 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('user_categories', function (Blueprint $table) {
-            $table->string('icon')->default('food');
-            $table->string('color')->default('#3b82f6');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('default_account_id')->nullable()->constrained('accounts')->nullOnDelete();
         });
     }
 
@@ -21,7 +20,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('user_categories', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

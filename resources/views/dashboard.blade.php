@@ -19,7 +19,7 @@
                     </p>
                 </div>
 
-                {{-- Stats Row --}}
+                {{--                Stats Row--}}
                 {{--                <div class="grid grid-cols-3 gap-4 mb-12">--}}
                 {{--                    <div--}}
                 {{--                        class="bg-zinc-50 dark:bg-zinc-800 rounded-2xl p-5 border border-zinc-100 dark:border-zinc-700">--}}
@@ -54,13 +54,43 @@
                     <p class="text-zinc-400 text-sm mb-6">Upload a CSV file exported from your bank</p>
                     <form action="{{ route('import.storeTransactions') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="file" name="statement" id="statementFile" class="hidden"
-                               onchange="this.form.submit()">
+                        <input
+                            type="file"
+                            name="statement"
+                            id="statementFile"
+                            class="hidden"
+                            accept=".csv,.pdf,.jpg,.jpeg"
+                            onchange="validateFile(this)">
+
                         <flux:button type="button" variant="primary"
                                      onclick="document.getElementById('statementFile').click()">
                             Upload Statement
                         </flux:button>
+
+                        <p id="fileError" class="text-red-500 text-xs mt-2 hidden">
+                            ⚠️ Only CSV, PDF, JPG or JPEG files are allowed.
+                        </p>
                     </form>
+
+                    <script>
+                        function validateFile(input) {
+                            const allowed = ['csv', 'pdf', 'jpg', 'jpeg'];
+                            const file = input.files[0];
+
+                            if (!file) return;
+
+                            const ext = file.name.split('.').pop().toLowerCase();
+                            const error = document.getElementById('fileError');
+
+                            if (!allowed.includes(ext)) {
+                                error.classList.remove('hidden');
+                                input.value = '';
+                            }
+
+                            error.classList.add('hidden');
+                            input.form.submit();
+                        }
+                    </script>
                 </div>
 
                 {{-- Quick Links --}}

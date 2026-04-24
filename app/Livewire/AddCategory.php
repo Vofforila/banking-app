@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Enums\TransactionCategory;
 use App\Models\Transactions;
 use App\Models\UserCategory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class AddCategory extends Component
@@ -14,13 +14,18 @@ class AddCategory extends Component
     public string $name = '';
     public string $type = 'expenses';
     public string $keywordsInput = '';
-    public string $selectedIcon = 'shopping';
+    public string $selectedIcon = 'food';
     public string $selectedColor = '#3b82f6';
 
     public function save(): void
     {
         $this->validate([
-            'name' => 'required|string',
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('user_categories', 'name')
+                    ->where('user_id', auth()->id()),
+            ],
             'type' => 'required|in:expenses,income',
             'keywordsInput' => 'required|string',
         ]);
@@ -32,15 +37,14 @@ class AddCategory extends Component
             [
                 'type' => $this->type,
                 'keywords' => $keywords,
-                'icon' => $this->selectedIcon,  // ✅
-                'color' => $this->selectedColor, // ✅
+                'icon' => $this->selectedIcon,
+                'color' => $this->selectedColor,
             ]
         );
 
-        // Recategorize
         $transactions = Transactions::where('user_id', auth()->id())->get();
         foreach ($transactions as $transaction) {
-            $newCategory = TransactionCategory::detect(
+            $newCategory = UserCategory::detect(
                 $transaction->payer ?? '',
                 $transaction->description ?? '',
                 auth()->id()
@@ -50,7 +54,6 @@ class AddCategory extends Component
 
         $this->reset(['name', 'type', 'keywordsInput', 'showModal']);
 
-        // ✅ Tell other components a category was added
         $this->dispatch('categoryUpdated');
     }
 

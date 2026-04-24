@@ -2,8 +2,9 @@
 
 namespace App\Livewire;
 
-use App\Enums\TransactionCategory;
+use App\Models\Account;
 use App\Models\Transactions;
+use App\Models\UserCategory;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -18,17 +19,46 @@ class AddTransaction extends Component
     public ?string $date = null;
     public ?string $description = null;
 
+    public function mount(): void
+    {
+        if (request()->has('account')) {
+            $this->selectedAccount = request()->get('account');
+        }
+    }
+
     public function render(): view
     {
+        $accounts = Account::where('user_id', auth()->id())->get();
+        $categories = $this->getCategories();
+
         return view('livewire.add-transaction', [
-            'categories' => TransactionCategory::forType($this->type),
+            'categories' => $categories,
+            'accounts' => $accounts,
         ]);
     }
-    
+
+    public function getCategories(): array
+    {
+        return UserCategory::where('user_id', auth()->id())
+            ->where('type', $this->type)
+            ->get()
+            ->map(fn($c) => [
+                'name' => $c->name,
+                'icon' => $c->icon,
+                'color' => $c->color,
+            ])
+            ->toArray();
+    }
+
+    public function setCategory(string $category): void
+    {
+        $this->selectedCategory = $category;
+    }
+
     public function setType(string $type): void
     {
         $this->type = $type;
-        $this->selectedCategory = null; // reset category when switching
+        $this->selectedCategory = null;
     }
 
     public function selectCategory(string $category): void
@@ -39,7 +69,6 @@ class AddTransaction extends Component
 
     public function save(): void
     {
-        // Validate
         $this->validate([
             'amount' => 'required|numeric',
             'date' => 'required|date',
@@ -48,7 +77,6 @@ class AddTransaction extends Component
             'currency' => 'required',
         ]);
 
-        // Save to DB
         Transactions::createTransaction(
             account: $this->selectedAccount,
             type: $this->type,
@@ -59,7 +87,6 @@ class AddTransaction extends Component
             description: $this->description,
         );
 
-        // Redirect back to transactions
         $this->redirect(route('transactions.index'));
     }
 

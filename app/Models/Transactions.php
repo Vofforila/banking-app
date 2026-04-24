@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\AccountService;
 use Illuminate\Database\Eloquent\Model;
 
 class Transactions extends Model
@@ -32,7 +33,7 @@ class Transactions extends Model
         ?string $description = null,
     ): self
     {
-        return self::create([
+        $transaction = self::create([
             'user_id' => auth()->id(),
             'account' => $account,
             'iban' => $iban,
@@ -44,5 +45,9 @@ class Transactions extends Model
             'description' => $description,
             'category' => $category,
         ]);
+
+        app(AccountService::class)->syncAccounts(auth()->id());
+
+        return $transaction;
     }
 }

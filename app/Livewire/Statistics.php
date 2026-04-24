@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Enums\TransactionCategory;
 use App\Models\Transactions;
 use App\Models\UserCategory;
 use Carbon\Carbon;
@@ -132,9 +131,9 @@ class Statistics extends Component
 
     public function getAllCategories(): array
     {
-        $predefined = array_map(fn($c) => $c->value, TransactionCategory::cases());
-        $userDefined = UserCategory::where('user_id', auth()->id())->pluck('name')->toArray();
-        return array_values(array_unique(array_merge($predefined, $userDefined)));
+        return UserCategory::where('user_id', auth()->id())
+            ->pluck('name')
+            ->toArray();
     }
 
     public function selectAll(): void
@@ -157,7 +156,6 @@ class Statistics extends Component
             $this->selectedCategories[] = $category;
         }
 
-        // ✅ Recalculate allSelected based on actual state
         $this->allSelected = count($this->selectedCategories) === count($this->getAllCategories());
     }
 

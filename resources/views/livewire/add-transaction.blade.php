@@ -22,8 +22,11 @@
     <div>
         <flux:label>Bank Account</flux:label>
         <flux:select wire:model="selectedAccount" placeholder="Select account..." class="mt-1">
-            <flux:select.option value="Bank Account 1">Bank Account 1</flux:select.option>
-            <flux:select.option value="Bank Account 2">Bank Account 2</flux:select.option>
+            @foreach($accounts as $account)
+                <flux:select.option value="{{ $account->name }}">
+                    {{ $account->name }} — {{ $account->iban ?? 'No IBAN' }}
+                </flux:select.option>
+            @endforeach
         </flux:select>
         @error('selectedAccount') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
     </div>
@@ -45,25 +48,22 @@
     <div>
         <flux:label>Category</flux:label>
         <div class="grid grid-cols-4 gap-3 mt-2">
+            {{-- User Defined --}}
             @foreach($categories as $category)
                 <div
-                    wire:click="setCategory('{{ $category->value }}')"
+                    wire:click="setCategory('{{ $category['name'] }}')"
                     class="flex flex-col items-center gap-2 cursor-pointer">
-
-                    {{-- Icon circle with highlight when selected --}}
                     <div
-                        class="{{ $selectedCategory === $category->value ? 'ring-2 ring-blue-500 rounded-full' : '' }}">
-                        <x-category-icon
-                            :category="$category->value"
-                            :size="10"/>
+                        class="{{ $selectedCategory === $category['name'] ? 'ring-2 ring-blue-500 rounded-full' : '' }}">
+                        <x-category-icon :category="$category" :size="10"/>
                     </div>
-
                     <span
-                        class="text-xs text-center {{ $selectedCategory === $category->value ? 'text-blue-500 font-semibold' : 'text-zinc-500' }}">
-                    {{ $category->value }}
-                </span>
+                        class="text-xs text-center {{ $selectedCategory === $category['name'] ? 'text-blue-500 font-semibold' : 'text-zinc-500' }}">
+            {{ $category['name'] }}
+        </span>
                 </div>
             @endforeach
+
         </div>
         @error('selectedCategory') <span class="text-red-500 text-xs">Please select a category</span> @enderror
     </div>

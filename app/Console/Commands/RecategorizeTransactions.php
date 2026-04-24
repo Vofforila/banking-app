@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\TransactionCategory;
 use App\Models\Transactions;
+use App\Models\UserCategory;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -19,7 +19,6 @@ class RecategorizeTransactions extends Command
     {
         $query = Transactions::query();
 
-        // Optionally filter by user
         if ($userId = $this->option('user')) {
             $query->where('user_id', $userId);
         }
@@ -31,7 +30,7 @@ class RecategorizeTransactions extends Command
         $bar = $this->output->createProgressBar($transactions->count());
 
         foreach ($transactions as $transaction) {
-            $newCategory = TransactionCategory::detect(
+            $newCategory = UserCategory::detect(
                 $transaction->payer ?? '',
                 $transaction->description ?? '',
                 $transaction->user_id

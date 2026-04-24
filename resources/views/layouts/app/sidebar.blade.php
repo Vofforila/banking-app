@@ -14,9 +14,10 @@
     <flux:sidebar.header>
         <flux:sidebar.brand
             href="{{ route('dashboard') }}"
-            logo="https://fluxui.dev/img/demo/logo.png"
-            logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
+            logo="{{ asset('images/dashboard.png') }}"
+            logo:dark="{{ asset('images/dashboard.png') }}"
             name="Dashboard"
+            title="bank icons"
         />
         <flux:sidebar.collapse
             class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2"/>
@@ -26,6 +27,10 @@
         <flux:sidebar.item icon="academic-cap" href="{{ route('dashboard') }}"
                            :current="request()->routeIs('dashboard')">
             Home
+        </flux:sidebar.item>
+        <flux:sidebar.item icon="building-library" href="{{ route('accounts.index') }}"
+                           :current="request()->routeIs('accounts.*')">
+            Accounts
         </flux:sidebar.item>
         <flux:sidebar.item icon="banknotes" href="{{ route('transactions.index') }}"
                            :current="request()->routeIs('transactions.*')">

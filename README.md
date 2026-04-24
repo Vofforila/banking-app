@@ -1,15 +1,39 @@
-# banking-app
+# Baking App
 
-How to Compile:
+This is a app where you can import your csv,pdf,img/jpeg and view the data statisticly structured. You can also
+categroize your expenses by createign diffrent categories for exepnses/incomes gained.
 
+- **Import bank statement**
+- **Statistics**
+- **User Auth**
+- **Clean UI**
+- **SQLite Database**
+
+How to Run Locally:
+
+```
 composer install
 php artisan optimize:clear
 npm install
 php artisan migrate
 php artisan optimize:clear
 php artisan key:generate
+```
 
-TO DO:
+### Technologies
+
+| Technologies                                               | Environments | Version |
+|------------------------------------------------------------|--------------|---------|
+| [PHP](https://www.php.net/)                                | Backend      | 8.4     |
+| Web tehnologies                                            | Web          |         |
+| [SQLite](https://sqlite.org/)                              | Database     | 18.2.0  |
+| [Tailwindcss](https://tailwindcss.com/)                    | UI           | 4.2.2   |
+| [Laravel](https://laravel.com/)                            | Backend      | 5.25.1  |
+| [Livewire FluxUI](https://fluxui.dev/)                     | UI           | 2.13.1  |
+| [TesseractOCR](https://github.com/tesseract-ocr/tesseract) | OCR          | 5       |
+| [ImageMagick](https://imagemagick.org/#gsc.tab=0)          | Converstor   | 7.1.2   |
+
+TO DO: Empty
 
 Features:
 
@@ -22,18 +46,5 @@ Features:
 7. User Auth
 8. Add User-predefined Categories for each Expenses/Income
 9. Add User Defined Categories
-
-Vreau sa faci o aplicatie, sa zicem banking, dar nu atat de avansata. Sa ii dai extrasul bancar pe o perioada si sa iti
-citeasca acel pdf, csv, etc si sa le stochezi in baza de date (sqlite). Sa le imparta pe categorii si sa iti faca si
-niste statistici cu cheltuielile pe categorii, etc. Vreau sa folosesti laravel ca sa nu stai sa reinventezi roata.
-
-Lucruri de bifat:
-Authentificare/Inregistrare
-Pagina de import pdf/csv
-Lista cu toate tranzactiile
-Pagina de statistici
-Rapoarte pe ce ai cheltuit banii in functie de categorii
-
-Sugestii de stack: Laravel 13, php 8.4+ ( poti folosii varianta free de herd.laravel.com , contine tot ce ai nevoie sa
-ridici un laravel), packagist.org pt pachete de composer, pt admin panel poti folosii https://fluxui.dev/ ca si
-framework visual.
+10. Add accounts page
+11. Add Transfer History

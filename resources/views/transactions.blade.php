@@ -1,8 +1,8 @@
 <x-layouts::app.sidebar :title="'Transactions'">
-    <flux:main>
+    <flux:main class="min-h-screen">
         {{-- Header Row --}}
         <flux:heading class="mb-4" size="xl">Transactions</flux:heading>
-        <div class="flex items-center justify-between mb-4">
+        <div>
             {{-- All buttons grouped together on the right --}}
             <div class="flex items-center gap-2">
                 <livewire:add-category/>
