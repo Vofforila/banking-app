@@ -24,7 +24,7 @@ php artisan key:generate
 
 | Technologies                                               | Environments | Version |
 |------------------------------------------------------------|--------------|---------|
-| [PHP](https://www.php.net/)                                | Backend      | 8.4     |
+| [PHP](https://www.php.net/)                                | Backend      | 8.3     |
 | Web tehnologies                                            | Web          |         |
 | [SQLite](https://sqlite.org/)                              | Database     | 18.2.0  |
 | [Tailwindcss](https://tailwindcss.com/)                    | UI           | 4.2.2   |
